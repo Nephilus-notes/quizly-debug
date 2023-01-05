@@ -55,7 +55,7 @@ const userData = async (req, res, next) => {
 
         // console.log(data)
         // console.log("HERERERERERERE")
-        console.log(req.verifiedUser)
+        // console.log(req.verifiedUser)
         req.verifiedUser = data.data.user
         next()
     } catch(err) {
