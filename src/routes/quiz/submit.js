@@ -2,7 +2,6 @@ const axios = require('axios')
 
 module.exports = async (req, res) => {
     const slug = req.params.slug 
-    
     let answers = []
 
     for (const key in req.body) {
@@ -13,7 +12,6 @@ module.exports = async (req, res) => {
             })
         }
     }
-
     const submissionData = {
         quizId: req.body.quizId,
         userId: req.verifiedUser.id,
@@ -26,7 +24,8 @@ module.exports = async (req, res) => {
         }
     `
     try {
-        const { data }= await axios.post(process.env(GRAPHQL_ENDPOINT), {
+        console.log(submissionData)
+        const { data }= await axios.post(process.env.GRAPHQL_ENDPOINT, {
             query: mutation,
             variables: submissionData
         }, {
@@ -34,9 +33,12 @@ module.exports = async (req, res) => {
                 'Content-Type': "application/json"
             }
         })
+
+        console.log('checking data')
+        console.log(data.data.submitQuiz)
       const submissionId = data.data.submitQuiz
 
-      res.redirect(`/quiz/results${submissionId}`)
+      res.redirect(`/quiz/results/${submissionId}`)
     } catch(e) {
         res.send(e)
     }

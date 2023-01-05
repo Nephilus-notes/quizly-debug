@@ -19,7 +19,7 @@ const user = {
         id: { type: GraphQLID }
     },
     resolve(parent, args) {
-        return User.findById(args.id)
+        return User.findOne({ id:args.id })
     }
 }
 
@@ -30,6 +30,7 @@ const quizBySlug = {
         slug: { type: GraphQLString }
     },
     resolve(parents, args) {
+        console.log("quiz Found")
         return Quiz.findOne({
             slug: args.slug
         })

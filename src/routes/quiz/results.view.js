@@ -16,9 +16,11 @@ module.exports = async(req, res) => {
     `
 
     try {
-        const { data }= await axios.post(process.env(GRAPHQL_ENDPOINT), {
+        const { data }= await axios.post(process.env.GRAPHQL_ENDPOINT, {
             query: query,
-            variables: submissionId
+            variables: {
+                id:submissionId 
+            }
         }, {
             headers: {
                 'Content-Type': "application/json"

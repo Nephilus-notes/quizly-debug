@@ -62,7 +62,7 @@ const QuizType = new GraphQLObjectType ({
         avgScore: {
             type: GraphQLFloat,
             async resolve(parent, args) {
-                const submissions = await Submission.find({ quizid: parent.id})
+                const submissions = await Submission.find({ quizId: parent.id})
 
                 let totalScore = 0
 

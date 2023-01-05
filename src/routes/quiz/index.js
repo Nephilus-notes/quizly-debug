@@ -12,7 +12,7 @@ QuizRouter.route('/:slug')
     .get(require('./form.view'))
 
 QuizRouter.route('/:slug/submit')
-    .get(require('./submit'))
+    .post(require('./submit'))
 
 QuizRouter.route('/results/:id')
     .get(require('./results.view'))

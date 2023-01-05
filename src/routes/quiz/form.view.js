@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
 
     const query = `
         query quizBySlug($slug: String!) {
-            quizBySlug(slug: $slug){
+            quizBySlug(slug: $slug) {
                 id,
                 slug,
                 title,
@@ -20,9 +20,11 @@ module.exports = async (req, res) => {
         }
     `
     try {
-        const { data }= await axios.post(process.env(GRAPHQL_ENDPOINT), {
+        const { data }= await axios.post(process.env.GRAPHQL_ENDPOINT, {
             query: query,
-            variables: slug
+            variables: {
+                slug
+            }
         }, {
             headers: {
                 'Content-Type': "application/json"
@@ -35,6 +37,7 @@ module.exports = async (req, res) => {
         res.render('quiz', { quiz: quizData })
 
     } catch(e) {
+        console.log("error")
         res.send(e)
     }
 }

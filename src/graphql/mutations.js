@@ -73,7 +73,7 @@ const createQuiz = {
         const slugify = args.title
             .toLowerCase()
             .replace(/[^\w ]+/g, '')
-            .replace(/[]/g, '-')
+            .replace(/[' ']/g, '-')
 
         let fullSlug = ''
 

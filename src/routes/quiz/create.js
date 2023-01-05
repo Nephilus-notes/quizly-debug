@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
 
     const quizData = {
         userId: req.verifiedUser.id,
-        title: req.bdy.quizTitle,
+        title: req.body.quizTitle,
         description: req.body.quizDescription,
         questions: []
     }
@@ -29,21 +29,18 @@ module.exports = async (req, res) => {
                  quizData.questions.push({})
              }
  
-             quizData.questions[questionNum].title = req.body[key]
+             quizData.questions[questionNum].correctAnswer = req.body[key]
              quizData.questions[questionNum].order= questionNum
         }
     }
 
-
-    res.send(quizData)
-
     const mutation = `
-        mutation createQuiz($userId: String!, $title: String!, $descriptions: String!, $questions: [QuestionInput!]!) { 
-            createQuiz(uderId: $uderId, title $title, description: $description, questions: $questions)
+        mutation createQuiz($userId: String!, $title: String!, $description: String!, $questions: [QuestionInputType!]!) { 
+            createQuiz(userId: $userId, title: $title, description: $description, questions: $questions)
         }
         `
         try {
-            const { data }= await axios.post(process.env(GRAPHQL_ENDPOINT), {
+            const { data }= await axios.post(process.env.GRAPHQL_ENDPOINT, {
                 query: mutation,
                 variables: quizData
             }, {

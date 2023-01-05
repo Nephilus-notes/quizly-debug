@@ -13,6 +13,7 @@ module.exports = async (req, res)=> {
     `
         console.log("grabbing data")
     try {
+        console.log("querying data")
         const { data }= await axios.post(process.env(GRAPHQL_ENDPOINT), {
             query: mutation,
             variables: {
